@@ -194,6 +194,7 @@ class _ScannerHomeState extends State<ScannerHome> {
   }
 
   void _showFinalScoreDialog() {
+    final TextEditingController _passwordController = TextEditingController();
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -230,31 +231,6 @@ class _ScannerHomeState extends State<ScannerHome> {
                 child: const Text('Logout'),
               ),
             ] else ...[
-              TextButton(
-                onPressed: () {
-                  _showAdminPasswordDialog();
-                },
-                child: const Text('Close'),
-              ),
-            ],
-          ],
-        );
-      },
-    );
-  }
-
-  void _showAdminPasswordDialog() {
-    final TextEditingController _passwordController = TextEditingController();
-
-    showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Admin Password'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
               TextField(
                 controller: _passwordController,
                 decoration: InputDecoration(
@@ -263,21 +239,19 @@ class _ScannerHomeState extends State<ScannerHome> {
                 ),
                 obscureText: true,
               ),
+              TextButton(
+                onPressed: () {
+                  if (_passwordController.text == '12345') {
+                    // Replace with actual password
+                    Navigator.of(context).pop(); // Close the dialog
+                  } else {
+                    _showScanResultDialog(
+                        'Incorrect password. You cannot close the game.');
+                  }
+                },
+                child: const Text('Submit'),
+              ),
             ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                if (_passwordController.text == '12345') {
-                  // Replace with actual password
-                  Navigator.of(context).pop(); // Close the dialog
-                } else {
-                  _showScanResultDialog(
-                      'Incorrect password. You cannot close the game.');
-                }
-              },
-              child: const Text('Submit'),
-            ),
           ],
         );
       },
