@@ -116,8 +116,9 @@ class _ScannerHomeState extends State<ScannerHome> {
           actions: [
             TextButton(
               onPressed: () {
-                String userAnswer = _answerController.text.trim();
-                if (userAnswer == correctAnswer) {
+                String userAnswer = _answerController.text.trim().toLowerCase();
+                String correctAnswerLower = correctAnswer.toLowerCase();
+                if (userAnswer == correctAnswerLower) {
                   setState(() {
                     _score++;
                   });
