@@ -65,7 +65,7 @@ class _HomeState extends State<Home> {
                     Text(
                       'Information Technology',
                       style: TextStyle(
-                        color: Colors.yellow[700],
+                        color: Colors.red[700],
                         fontSize: 26,
                         fontWeight: FontWeight.bold,
                       ),
