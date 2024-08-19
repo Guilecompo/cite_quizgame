@@ -8,7 +8,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 const bgColor = Color(0xFF1b5e20);
 
 final List<Map<String, String>> questionsAndAnswers = [
-  {"question": "What is the output of print(5 + 3)?", "answer": "8"},
+  {"question": "What is the output of `print(5 + 3)`?", "answer": "8"},
   {
     "question": "What keyword is used to exit a loop prematurely?",
     "answer": "break"
@@ -19,40 +19,46 @@ final List<Map<String, String>> questionsAndAnswers = [
     "answer": "return"
   },
   {
-    "question": "What is the purpose of using == in a condition?",
+    "question": "What is the purpose of using `==` in a condition?",
     "answer": "equal"
   },
-  {"question": "What does 5 == 5 evaluate to?", "answer": "true"},
+  {"question": "What does `5 == 5` evaluate to?", "answer": "true"},
   {
-    "question": "What is the purpose of using != in a condition?",
+    "question": "What is the purpose of using `!=` in a condition?",
     "answer": "not equal"
   },
   {
-    "question": "What is the purpose of using < in a condition?",
+    "question": "What is the purpose of using `<` in a condition?",
     "answer": "less than"
   },
   {
-    "question": "What is the purpose of using > in a condition?",
+    "question": "What is the purpose of using `>` in a condition?",
     "answer": "greater than"
   },
-  {"question": "What does str represent in programming?", "answer": "string"},
-  {"question": "What does int represent in programming?", "answer": "integer"},
-  {"question": "What does float stand for?", "answer": "decimal"},
-  {"question": "What does bool represent in programming?", "answer": "boolean"},
-  {"question": "What is the purpose of # in Python?", "answer": "comment"},
-  {"question": "What is the result of print(5 + 3)?", "answer": "8"},
-  {"question": "What is the result of print(5 * 3)?", "answer": "15"},
-  {"question": "What is the result of print(15 - 3)?", "answer": "12"},
+  {"question": "What does `str` represent in programming?", "answer": "string"},
   {
-    "question": "What is the result of print(\"Number: \" + 5)?",
+    "question": "What does `int` represent in programming?",
+    "answer": "integer"
+  },
+  {"question": "What does `float` stand for?", "answer": "decimal"},
+  {
+    "question": "What does `bool` represent in programming?",
+    "answer": "boolean"
+  },
+  {"question": "What is the purpose of `#` in Python?", "answer": "comment"},
+  {"question": "What is the result of `print(5 + 3)`?", "answer": "8"},
+  {"question": "What is the result of `print(5 * 3)`?", "answer": "15"},
+  {"question": "What is the result of `print(15 - 3)`?", "answer": "12"},
+  {
+    "question": "What is the result of `print(\"Number: \" + 5)`?",
     "answer": "error"
   },
   {
-    "question": "What is the result of print(\"Year: \" + 2024)?",
+    "question": "What is the result of `print(\"Year: \" + 2024)`?",
     "answer": "error"
   },
   {
-    "question": "What is the result of print(\"information technology\")?",
+    "question": "What is the result of `print(\"information technology\")`?",
     "answer": "information technology"
   },
 ];
