@@ -8,26 +8,53 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 const bgColor = Color(0xFF1b5e20);
 
 final List<Map<String, String>> questionsAndAnswers = [
-  {"question": "What is 1 + 1?", "answer": "2"},
-  {"question": "What is 5 - 3?", "answer": "2"},
-  {"question": "What is 4 × 7?", "answer": "28"},
-  {"question": "What is 9 ÷ 3?", "answer": "3"},
-  {"question": "What is 8 + 6?", "answer": "14"},
-  {"question": "What is 15 - 7?", "answer": "8"},
-  {"question": "What is 3 × 6?", "answer": "18"},
-  {"question": "What is 12 ÷ 4?", "answer": "3"},
-  {"question": "What is 7 + 9?", "answer": "16"},
-  {"question": "What is 18 - 5?", "answer": "13"},
-  {"question": "What is 5 × 5?", "answer": "25"},
-  {"question": "What is 20 ÷ 2?", "answer": "10"},
-  {"question": "What is 6 + 11?", "answer": "17"},
-  {"question": "What is 14 - 8?", "answer": "6"},
-  {"question": "What is 7 × 3?", "answer": "21"},
-  {"question": "What is 24 ÷ 6?", "answer": "4"},
-  {"question": "What is 13 + 7?", "answer": "20"},
-  {"question": "What is 30 - 10?", "answer": "20"},
-  {"question": "What is 9 × 2?", "answer": "18"},
-  {"question": "What is 45 ÷ 9?", "answer": "5"},
+  {"question": "What is the output of print(5 + 3)?", "answer": "8"},
+  {
+    "question": "What keyword is used to exit a loop prematurely?",
+    "answer": "break"
+  },
+  {
+    "question":
+        "What keyword is used to end a function early and return a value?",
+    "answer": "return"
+  },
+  {
+    "question": "What is the purpose of using == in a condition?",
+    "answer": "equal"
+  },
+  {"question": "What does 5 == 5 evaluate to?", "answer": "true"},
+  {
+    "question": "What is the purpose of using != in a condition?",
+    "answer": "not equal"
+  },
+  {
+    "question": "What is the purpose of using < in a condition?",
+    "answer": "less than"
+  },
+  {
+    "question": "What is the purpose of using > in a condition?",
+    "answer": "greater than"
+  },
+  {"question": "What does str represent in programming?", "answer": "string"},
+  {"question": "What does int represent in programming?", "answer": "integer"},
+  {"question": "What does float stand for?", "answer": "decimal"},
+  {"question": "What does bool represent in programming?", "answer": "boolean"},
+  {"question": "What is the purpose of # in Python?", "answer": "comment"},
+  {"question": "What is the result of print(5 + 3)?", "answer": "8"},
+  {"question": "What is the result of print(5 * 3)?", "answer": "15"},
+  {"question": "What is the result of print(15 - 3)?", "answer": "12"},
+  {
+    "question": "What is the result of print(\"Number: \" + 5)?",
+    "answer": "error"
+  },
+  {
+    "question": "What is the result of print(\"Year: \" + 2024)?",
+    "answer": "error"
+  },
+  {
+    "question": "What is the result of print(\"information technology\")?",
+    "answer": "information technology"
+  },
 ];
 
 final List<String> qrCodeOrder = [
