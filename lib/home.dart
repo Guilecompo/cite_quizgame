@@ -49,6 +49,89 @@ class _HomeState extends State<Home> {
   int _currentPageIndex = 0;
   final int _totalPages = imagePaths.length;
 
+  String? _no;
+  String? _name;
+  String? _score;
+  bool _isInputEnabled = true; // Track if input should be enabled
+
+  Future<void> _loadNo() async {
+    // Retrieve stored values
+    final no = await getStoredNo();
+    final name = await getStoredName();
+    final scoreString = await getStoredScore();
+
+    // Convert scoreString to an integer if it's not null
+    final score = int.tryParse(scoreString ?? '') ?? 0;
+
+    // Debug print statements
+    print('Stored No: $no');
+    print('Stored Name: $name');
+    print('Stored Score: $score');
+
+    // Update state with the retrieved values
+    setState(() {
+      _no = no;
+      _name = name;
+      _score = scoreString; // Storing as a string, if needed elsewhere
+
+      // Determine if the input should be enabled
+      _isInputEnabled =
+          !(no == '1' && name != null && name.isNotEmpty && score >= 6);
+
+      print('Is Input Enabled: $_isInputEnabled');
+
+      // Check conditions and navigate or show error
+      if (_no == '1') {
+        if (_name!.isNotEmpty) {
+          if (score < 6) {
+            // Navigate to ScannerHome if the score is less than 6
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ScannerHome(name: _name!),
+              ),
+            );
+          } else {
+            // Show SnackBar if the score is greater than or equal to 6
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  'You already passed the quiz, you can’t play again.',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                backgroundColor: Colors.orange,
+                duration: Duration(minutes: 5),
+              ),
+            );
+          }
+        }
+      }
+    });
+  }
+
+  Future<String?> getStoredNo() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String? no =
+        prefs.getString('no'); // Replace 'name' with your actual key
+    return no;
+  }
+
+  Future<String?> getStoredName() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String? name =
+        prefs.getString('name'); // Replace 'name' with your actual key
+    return name;
+  }
+
+  Future<String?> getStoredScore() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String? score =
+        prefs.getString('score'); // Replace 'name' with your actual key
+    return score;
+  }
+
   Future<void> _saveName() async {
     final name = _nameController.text.trim();
 
@@ -72,6 +155,7 @@ class _HomeState extends State<Home> {
     } else {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('name', name);
+      await prefs.setString('no', '1');
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -84,6 +168,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    _loadNo();
     _pageController = PageController(
         initialPage: _totalPages *
             1000); // Set an arbitrary large value to start in the middle
@@ -117,7 +202,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.green[900],
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -161,7 +245,7 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       const SizedBox(
-                        height: 30,
+                        height: 35,
                       ),
                       Container(
                         color: Colors.white12,
@@ -169,9 +253,9 @@ class _HomeState extends State<Home> {
                         child: const Text(
                           '\t\t\tCelebrate IT Days with an exciting Quiz Game where the challenge is to find and scan QR codes! \n\n\t\t\tTest your coding knowledge by uncovering QR codes, which will reveal questions you need to answer. \n\n\t\t\tIt is a fun and interactive way to sharpen your skills and embrace the thrill of competition!',
                           style: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 18,
-                          ),
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500),
                         ),
                       ),
                       const SizedBox(
@@ -193,12 +277,16 @@ class _HomeState extends State<Home> {
                             horizontal: 20.0,
                           ),
                         ),
+                        enabled:
+                            _isInputEnabled, // Enable or disable TextField based on condition
                       ),
                       const SizedBox(height: 20),
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                          onPressed: _saveName,
+                          onPressed: _isInputEnabled
+                              ? _saveName
+                              : null, // Enable or disable button based on condition
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.yellow[700],
                             padding: const EdgeInsets.symmetric(vertical: 15),

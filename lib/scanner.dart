@@ -4,6 +4,7 @@ import 'package:cite_quizgame/home.dart'; // Ensure this import is correct
 import 'package:cite_quizgame/overlay.dart'; // Ensure this import is correct
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 const bgColor = Color(0xFF1b5e20);
 
@@ -167,7 +168,7 @@ class _ScannerHomeState extends State<ScannerHome> {
         }
 
         if (index != _nextExpectedIndex) {
-          _showScanResultDialog('Not yet find the other QR');
+          _showScanResultDialog('Find the other QR');
           return;
         }
 
@@ -253,12 +254,16 @@ class _ScannerHomeState extends State<ScannerHome> {
                 child: const Text('Try Again'),
               ),
               TextButton(
-                onPressed: () {
+                onPressed: () async {
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  await prefs.setString(
+                      'score', _score.toString()); // Store score as string
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            Home()), // Navigate to home screen
+                      builder: (context) => Home(), // Pass the score
+                    ),
                   );
                 },
                 child: const Text('Logout'),
@@ -273,10 +278,19 @@ class _ScannerHomeState extends State<ScannerHome> {
                 obscureText: true,
               ),
               TextButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_passwordController.text == '12345') {
-                    // Replace with actual password
-                    Navigator.of(context).pop(); // Close the dialog
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    await prefs.setString(
+                        'score', _score.toString()); // Store score as string
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Home(), // Pass the score
+                      ),
+                    );
+                    print('Password correct and score saved');
                   } else {
                     _showScanResultDialog(
                         'Incorrect password. You cannot close the game.');
