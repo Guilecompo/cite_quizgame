@@ -1,4 +1,5 @@
-import 'package:cite_quizgame/home.dart';
+// import 'package:cite_quizgame/home.dart';
+import 'package:cite_quizgame/scanner.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,7 +18,10 @@ class MyApp extends StatelessWidget {
         elevation: 0.0,
       )),
       debugShowCheckedModeBanner: false,
-      home: const Home(),
+      // home: const Home(),
+      home: const ScannerHome(
+        name: '',
+      ),
     );
   }
 }
