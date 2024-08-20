@@ -169,7 +169,7 @@ class _HomeState extends State<Home> {
                         child: const Text(
                           '\t\t\tCelebrate IT Days with an exciting Quiz Game where the challenge is to find and scan QR codes! \n\n\t\t\tTest your coding knowledge by uncovering QR codes, which will reveal questions you need to answer. \n\n\t\t\tIt is a fun and interactive way to sharpen your skills and embrace the thrill of competition!',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black87,
                             fontSize: 18,
                           ),
                         ),

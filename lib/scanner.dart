@@ -311,9 +311,12 @@ class _ScannerHomeState extends State<ScannerHome> {
                 children: [
                   Expanded(
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        SizedBox(
+                          height: 50,
+                        ),
                         Text(
                           'Information Technology',
                           style: TextStyle(
