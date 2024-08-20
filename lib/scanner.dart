@@ -311,14 +311,14 @@ class _ScannerHomeState extends State<ScannerHome> {
                 children: [
                   Expanded(
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
                           'Information Technology',
                           style: TextStyle(
                             color: Colors.yellow[600],
-                            fontSize: 20,
+                            fontSize: 26,
                             fontWeight: FontWeight.bold,
                             letterSpacing: 1,
                           ),
@@ -334,7 +334,7 @@ class _ScannerHomeState extends State<ScannerHome> {
                           Text(
                             'Hello, ${widget.name}',
                             style: TextStyle(
-                              color: Colors.white70,
+                              color: Colors.white,
                               fontSize: 16,
                               letterSpacing: 1,
                             ),

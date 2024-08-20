@@ -136,9 +136,6 @@ class _HomeState extends State<Home> {
                   padding: const EdgeInsets.all(20.0),
                   child: Column(
                     children: [
-                      const SizedBox(
-                        height: 10,
-                      ),
                       Text(
                         'Information Technology',
                         style: TextStyle(
@@ -164,17 +161,21 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       const SizedBox(
-                        height: 40,
+                        height: 30,
                       ),
-                      const Text(
-                        'Celebrate IT Days with an exciting Quiz Game where the challenge is to find and scan QR codes! Test your coding knowledge by uncovering QR codes, which will reveal questions you need to answer. It is a fun and interactive way to sharpen your skills and embrace the thrill of competition!',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
+                      Container(
+                        color: Colors.white12,
+                        padding: const EdgeInsets.all(6),
+                        child: const Text(
+                          '\t\t\tCelebrate IT Days with an exciting Quiz Game where the challenge is to find and scan QR codes! \n\n\t\t\tTest your coding knowledge by uncovering QR codes, which will reveal questions you need to answer. \n\n\t\t\tIt is a fun and interactive way to sharpen your skills and embrace the thrill of competition!',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
                         ),
                       ),
                       const SizedBox(
-                        height: 60,
+                        height: 30,
                       ),
                       TextField(
                         controller: _nameController,
