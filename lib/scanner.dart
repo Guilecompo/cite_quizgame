@@ -297,84 +297,96 @@ class _ScannerHomeState extends State<ScannerHome> {
     return Scaffold(
       backgroundColor: bgColor,
       body: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Expanded(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('images/13.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: SizedBox(
+              width: 350,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                    'Information Technology',
-                    style: TextStyle(
-                      color: Colors.yellow[600],
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1,
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Information Technology',
+                          style: TextStyle(
+                            color: Colors.yellow[600],
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Hello, ${widget.name}',
+                            style: TextStyle(
+                              color: Colors.white70,
+                              fontSize: 16,
+                              letterSpacing: 1,
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            'Place the QR code',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 1,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 4,
+                    child: Stack(
+                      children: [
+                        MobileScanner(
+                          onDetect: (barcode) {
+                            String code =
+                                barcode.barcodes.first.displayValue ?? '---';
+                            _handleScan(code);
+                          },
+                        ),
+                        QRScannerOverlay(overLayColor: bgColor),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: Text(
+                        'CITE Developer',
+                        style: TextStyle(
+                          color: Colors.yellow[600],
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1,
+                        ),
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
-            Expanded(
-              child: Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Hello, ${widget.name}',
-                      style: TextStyle(
-                        color: Colors.white70,
-                        fontSize: 16,
-                        letterSpacing: 1,
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      'Place the QR code',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 4,
-              child: Stack(
-                children: [
-                  MobileScanner(
-                    onDetect: (barcode) {
-                      String code =
-                          barcode.barcodes.first.displayValue ?? '---';
-                      _handleScan(code);
-                    },
-                  ),
-                  QRScannerOverlay(overLayColor: bgColor),
-                ],
-              ),
-            ),
-            Expanded(
-              child: Container(
-                alignment: Alignment.center,
-                child: Text(
-                  'CITE Developer',
-                  style: TextStyle(
-                    color: Colors.yellow[600],
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1,
-                  ),
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
