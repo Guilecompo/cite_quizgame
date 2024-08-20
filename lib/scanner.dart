@@ -93,7 +93,6 @@ class _ScannerHomeState extends State<ScannerHome> {
   int _score = 0;
   final Random _random = Random();
   final TextEditingController _answerController = TextEditingController();
-  bool _isAdminMode = false;
 
   void _showQuestionDialog(
       String question, String correctAnswer, int currentIndex) {
