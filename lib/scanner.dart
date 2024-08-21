@@ -11,10 +11,7 @@ const bgColor = Color(0xFF1b5e20);
 
 final List<Map<String, String>> questionsAndAnswers = [
   {"question": "What is the output of `print(5 + 3)`  ?", "answer": "8"},
-  {
-    "question": "What keyword is used to exit a loop prematurely  ?",
-    "answer": "break"
-  },
+  {"question": "What keyword is used to exit a loop  ?", "answer": "break"},
   {
     "question":
         "What keyword is used to end a function early and return a value  ?",
@@ -24,17 +21,17 @@ final List<Map<String, String>> questionsAndAnswers = [
     "question": "What is the purpose of using `==` in a condition  ?",
     "answer": "equal"
   },
-  {"question": "What does `5 == 5` evaluate to  ?", "answer": "true"},
+  {"question": "Is the statement `5 == 5` true or false  ?", "answer": "true"},
   {
-    "question": "What is the purpose of using `!=` in a condition  ?",
+    "question": "What is the meaning of this condition `!=` in programming  ?",
     "answer": "not equal"
   },
   {
-    "question": "What is the purpose of using `<` in a condition  ?",
+    "question": "What is the meaning of this condition `<` in programming  ?",
     "answer": "less than"
   },
   {
-    "question": "What is the purpose of using `>` in a condition  ?",
+    "question": "What is meaning of this condition `>` in programming  ?",
     "answer": "greater than"
   },
   {
@@ -45,7 +42,10 @@ final List<Map<String, String>> questionsAndAnswers = [
     "question": "What does `int` represent in programming  ?",
     "answer": "integer"
   },
-  {"question": "What does `float` stand for  ?", "answer": "decimal"},
+  {
+    "question": "What does float represent in terms of data type?",
+    "answer": "decimal"
+  },
   {
     "question": "What does `bool` represent in programming  ?",
     "answer": "boolean"
