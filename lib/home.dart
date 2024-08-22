@@ -54,58 +54,6 @@ class _HomeState extends State<Home> {
   String? _score;
   bool _isInputEnabled = true; // Track if input should be enabled
 
-  @override
-  void initState() {
-    super.initState();
-    _checkAndClearLocalStorage(); // Check and clear local storage if needed
-    _loadNo();
-    _pageController = PageController(
-        initialPage: _totalPages *
-            1000); // Set an arbitrary large value to start in the middle
-    _timer = Timer.periodic(Duration(seconds: 3), (Timer timer) {
-      if (_pageController.hasClients) {
-        _currentPageIndex = (_currentPageIndex + 1) % _totalPages;
-        _pageController.animateToPage(
-          _totalPages * 1000 +
-              _currentPageIndex, // Use the large value plus current page index for smooth loop
-          duration: Duration(milliseconds: 300),
-          curve: Curves.easeInOut,
-        );
-      }
-    });
-    _pages = List.generate(
-      imagePaths.length,
-      (index) => ImagePlaceholder(
-        imagePath: imagePaths[index],
-        imageName: imageNamePaths[index],
-      ),
-    );
-  }
-
-  Future<void> _checkAndClearLocalStorage() async {
-    final prefs = await SharedPreferences.getInstance();
-    final int? lastVisitTimestamp = prefs.getInt('last_visit_timestamp');
-    final int currentTime = DateTime.now().millisecondsSinceEpoch;
-
-    // Check if 1 minute (60000 milliseconds) has passed
-    if (lastVisitTimestamp != null &&
-        (currentTime - lastVisitTimestamp) > 60 * 1000) {
-      // Clear all data from SharedPreferences
-      await prefs.clear();
-
-      // Refresh the page after clearing data
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const Home(),
-        ),
-      );
-    } else {
-      // Update the timestamp to the current time
-      await prefs.setInt('last_visit_timestamp', currentTime);
-    }
-  }
-
   Future<void> _loadNo() async {
     // Retrieve stored values
     final no = await getStoredNo();
@@ -166,7 +114,7 @@ class _HomeState extends State<Home> {
   Future<String?> getStoredNo() async {
     final prefs = await SharedPreferences.getInstance();
     final String? no =
-        prefs.getString('no'); // Replace 'no' with your actual key
+        prefs.getString('no'); // Replace 'name' with your actual key
     return no;
   }
 
@@ -180,7 +128,7 @@ class _HomeState extends State<Home> {
   Future<String?> getStoredScore() async {
     final prefs = await SharedPreferences.getInstance();
     final String? score =
-        prefs.getString('score'); // Replace 'score' with your actual key
+        prefs.getString('score'); // Replace 'name' with your actual key
     return score;
   }
 
@@ -215,6 +163,33 @@ class _HomeState extends State<Home> {
         ),
       );
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadNo();
+    _pageController = PageController(
+        initialPage: _totalPages *
+            1000); // Set an arbitrary large value to start in the middle
+    _timer = Timer.periodic(Duration(seconds: 3), (Timer timer) {
+      if (_pageController.hasClients) {
+        _currentPageIndex = (_currentPageIndex + 1) % _totalPages;
+        _pageController.animateToPage(
+          _totalPages * 1000 +
+              _currentPageIndex, // Use the large value plus current page index for smooth loop
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        );
+      }
+    });
+    _pages = List.generate(
+      imagePaths.length,
+      (index) => ImagePlaceholder(
+        imagePath: imagePaths[index],
+        imageName: imageNamePaths[index],
+      ),
+    );
   }
 
   @override
