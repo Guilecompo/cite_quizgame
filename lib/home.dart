@@ -32,10 +32,10 @@ class _HomeState extends State<Home> {
   bool _isInputEnabled = true; // Track if input should be enabled
 
   Future<void> _loadNo() async {
-    // Retrieve stored values
     final no = await getStoredNo();
     final name = await getStoredName();
     final scoreString = await getStoredScore();
+    final lastSavedTimeMillis = await getStoredLastSavedTime();
 
     // Convert scoreString to an integer if it's not null
     final score = int.tryParse(scoreString ?? '') ?? 0;
@@ -44,24 +44,40 @@ class _HomeState extends State<Home> {
     print('Stored No: $no');
     print('Stored Name: $name');
     print('Stored Score: $score');
+    print('Last Saved Time: $lastSavedTimeMillis');
 
-    // Update state with the retrieved values
+    // Check if the data is expired (older than 1 minute)
+    if (lastSavedTimeMillis != null) {
+      final lastSavedTime =
+          DateTime.fromMillisecondsSinceEpoch(lastSavedTimeMillis);
+      final currentTime = DateTime.now();
+      final difference = currentTime.difference(lastSavedTime).inMinutes;
+
+      if (difference >= 1) {
+        // Data is expired, clear stored data
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.remove('name');
+        await prefs.remove('no');
+        await prefs.remove('score');
+        await prefs.remove('lastSavedTime');
+        // Optionally, navigate or show a message
+        print('Stored data has expired and has been cleared.');
+      }
+    }
+
     setState(() {
       _no = no;
       _name = name;
-      _score = scoreString; // Storing as a string, if needed elsewhere
+      _score = scoreString;
 
-      // Determine if the input should be enabled
       _isInputEnabled =
           !(no == '1' && name != null && name.isNotEmpty && score >= 6);
 
       print('Is Input Enabled: $_isInputEnabled');
 
-      // Check conditions and navigate or show error
       if (_no == '1') {
         if (_name!.isNotEmpty) {
           if (score < 6) {
-            // Navigate to ScannerHome if the score is less than 6
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -69,7 +85,6 @@ class _HomeState extends State<Home> {
               ),
             );
           } else {
-            // Show SnackBar if the score is greater than or equal to 6
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -80,6 +95,11 @@ class _HomeState extends State<Home> {
         }
       }
     });
+  }
+
+  Future<int?> getStoredLastSavedTime() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getInt('lastSavedTime'); // Retrieve last saved time
   }
 
   Future<String?> getStoredNo() async {
@@ -127,6 +147,8 @@ class _HomeState extends State<Home> {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('name', name);
       await prefs.setString('no', '1');
+      await prefs.setInt('lastSavedTime',
+          DateTime.now().millisecondsSinceEpoch); // Save the current time
       Navigator.push(
         context,
         MaterialPageRoute(
