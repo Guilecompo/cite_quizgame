@@ -1,193 +1,480 @@
-  import 'dart:math';
+import 'dart:math';
 
-  import 'package:cite_quizgame/home.dart'; // Ensure this import is correct
-  import 'package:cite_quizgame/overlay.dart'; // Ensure this import is correct
-  import 'package:flutter/cupertino.dart';
-  import 'package:flutter/material.dart';
-  import 'package:mobile_scanner/mobile_scanner.dart';
-  import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cite_quizgame/finalpage.dart';
+import 'package:cite_quizgame/home.dart'; // Ensure this import is correct
+import 'package:cite_quizgame/overlay.dart'; // Ensure this import is correct
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-  const bgColor = Color(0xFF1b5e20);
+const bgColor = Color(0xFF1b5e20);
 
-  final List<Map<String, String>> questionsAndAnswers = [
-    {"question": "What is the output of `print(5 + 3)`  ?", "answer": "8"},
-    {"question": "What keyword is used to exit a loop  ?", "answer": "break"},
-    {
-      "question":
-          "What keyword is used to end a function early and return a value  ?",
-      "answer": "return"
-    },
-    {
-      "question": "What is the purpose of using `==` in a condition  ?",
-      "answer": "equal"
-    },
-    {"question": "Is the statement `5 == 5` true or false  ?", "answer": "true"},
-    {
-      "question": "What is the meaning of this condition `!=` in programming  ?",
-      "answer": "not equal"
-    },
-    {
-      "question": "What is the meaning of this condition `<` in programming  ?",
-      "answer": "less than"
-    },
-    {
-      "question": "What is meaning of this condition `>` in programming  ?",
-      "answer": "greater than"
-    },
-    {
-      "question": "What does `str` represent in programming  ?",
-      "answer": "string"
-    },
-    {
-      "question": "What does `int` represent in programming  ?",
-      "answer": "integer"
-    },
-    {
-      "question": "What does float represent in terms of data type?",
-      "answer": "decimal"
-    },
-    {
-      "question": "What does `bool` represent in programming  ?",
-      "answer": "boolean"
-    },
-    {"question": "What is the purpose of `#` in Python  ?", "answer": "comment"},
-    {"question": "What is the result of `print(5 + 3)`  ?", "answer": "8"},
-    {"question": "What is the result of `print(5 * 3)`  ?", "answer": "15"},
-    {"question": "What is the result of `print(15 - 3)`  ?", "answer": "12"},
-    {
-      "question": "What is the result of `print(\"Number: \" + 5)`  ?",
-      "answer": "error"
-    },
-    {
-      "question": "What is the result of `print(\"Year: \" + 2024)`  ?",
-      "answer": "error"
-    },
-    {
-      "question": "What is the result of `print(\"information technology\")`  ?",
-      "answer": "information technology"
-    },
-  ];
+final List<Map<String, String>> questionsAndAnswers = [
+  {"question": "What is the output of `print(5 + 3)`  ?", "answer": "8"},
+  {"question": "What keyword is used to exit a loop  ?", "answer": "break"},
+  {
+    "question":
+        "What keyword is used to end a function early and return a value  ?",
+    "answer": "return"
+  },
+  {
+    "question": "What is the purpose of using `==` in a condition  ?",
+    "answer": "equal"
+  },
+  {"question": "Is the statement `5 == 5` true or false  ?", "answer": "true"},
+  {
+    "question": "What is the meaning of this condition `!=` in programming  ?",
+    "answer": "not equal"
+  },
+  {
+    "question": "What is the meaning of this condition `<` in programming  ?",
+    "answer": "less than"
+  },
+  {
+    "question": "What is meaning of this condition `>` in programming  ?",
+    "answer": "greater than"
+  },
+  {
+    "question": "What does `str` represent in programming  ?",
+    "answer": "string"
+  },
+  {
+    "question": "What does `int` represent in programming  ?",
+    "answer": "integer"
+  },
+  {
+    "question": "What does float represent in terms of data type?",
+    "answer": "decimal"
+  },
+  {
+    "question": "What does `bool` represent in programming  ?",
+    "answer": "boolean"
+  },
+  {"question": "What is the purpose of `#` in Python  ?", "answer": "comment"},
+  {"question": "What is the result of `print(5 + 3)`  ?", "answer": "8"},
+  {"question": "What is the result of `print(5 * 3)`  ?", "answer": "15"},
+  {"question": "What is the result of `print(15 - 3)`  ?", "answer": "12"},
+  {
+    "question": "What is the result of `print(\"Number: \" + 5)`  ?",
+    "answer": "error"
+  },
+  {
+    "question": "What is the result of `print(\"Year: \" + 2024)`  ?",
+    "answer": "error"
+  },
+  {
+    "question": "What is the result of `print(\"information technology\")`  ?",
+    "answer": "information technology"
+  },
+];
 
-  final List<String> qrCodeOrder = [
-    'PHINMA_COC_CITE_Question1',
-    'PHINMA_COC_CITE_Question2',
-    'PHINMA_COC_CITE_Question3',
-    'PHINMA_COC_CITE_Question4',
-    'PHINMA_COC_CITE_Question5',
-    'PHINMA_COC_CITE_Question6',
-    'PHINMA_COC_CITE_Question7',
-    'PHINMA_COC_CITE_Question8',
-    'PHINMA_COC_CITE_Question9',
-    'PHINMA_COC_CITE_Question10',
-  ];
+final List<String> qrCodeOrder = [
+  'PHINMA_COC_CITE_Question1',
+  'PHINMA_COC_CITE_Question2',
+  'PHINMA_COC_CITE_Question3',
+  'PHINMA_COC_CITE_Question4',
+  'PHINMA_COC_CITE_Question5',
+  'PHINMA_COC_CITE_Question6',
+  'PHINMA_COC_CITE_Question7',
+  'PHINMA_COC_CITE_Question8',
+  'PHINMA_COC_CITE_Question9',
+  'PHINMA_COC_CITE_Question10',
+];
 
-  final List<String> hints = [
-    'Hint for QR Code 1',
-    'Hint for QR Code 2',
-    'Hint for QR Code 3',
-    'Hint for QR Code 4',
-    'Hint for QR Code 5',
-    'Hint for QR Code 6',
-    'Hint for QR Code 7',
-    'Hint for QR Code 8',
-    'Hint for QR Code 9',
-    'Hint for QR Code 10',
-  ];
+final List<String> hints = [
+  'Hint for QR Code 1',
+  'Hint for QR Code 2',
+  'Hint for QR Code 3',
+  'Hint for QR Code 4',
+  'Hint for QR Code 5',
+  'Hint for QR Code 6',
+  'Hint for QR Code 7',
+  'Hint for QR Code 8',
+  'Hint for QR Code 9',
+  'Hint for QR Code 10',
+];
 
-  class ScannerHome extends StatefulWidget {
-    final String name;
-    const ScannerHome({Key? key, required this.name}) : super(key: key);
+class ScannerHome extends StatefulWidget {
+  final String name;
+  const ScannerHome({Key? key, required this.name}) : super(key: key);
 
-    @override
-    _ScannerHomeState createState() => _ScannerHomeState();
+  @override
+  _ScannerHomeState createState() => _ScannerHomeState();
+}
+
+class _ScannerHomeState extends State<ScannerHome> {
+  bool _isCooldownActive = false;
+  bool _isScanning = true;
+  bool _isFinalScoreDialogActive = false; // Add this flag
+  Set<String> _scannedCodes = {};
+  List<Map<String, String>> _remainingQuestions =
+      List.from(questionsAndAnswers);
+  int _nextExpectedIndex = 0;
+  int _score = 0;
+  final Random _random = Random();
+  final TextEditingController _answerController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  String? name;
+  int? number;
+  int? score;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkCriteria();
   }
 
-  class _ScannerHomeState extends State<ScannerHome> {
-    bool _isCooldownActive = false;
-    bool _isScanning = true;
-    bool _isFinalScoreDialogActive = false; // Add this flag
-    Set<String> _scannedCodes = {};
-    List<Map<String, String>> _remainingQuestions =
-        List.from(questionsAndAnswers);
-    int _nextExpectedIndex = 0;
-    int _score = 0;
-    final Random _random = Random();
-    final TextEditingController _answerController = TextEditingController();
-    final TextEditingController _passwordController = TextEditingController();
+  Future<void> _checkCriteria() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    name = prefs.getString('name');
+    number = prefs.getInt('number');
+    score = prefs.getInt('score');
 
-    @override
-    Future<bool> onWillPop() async {
-      // Prevent back navigation by returning false
-      return Future.value(false);
+    if (name != null && number != null && score != null && score! >= 6) {
+      // Navigate to final page
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const Finalpage(),
+        ),
+      );
+    } else {
+      // Stay on the current page
+      setState(() {});
     }
+  }
 
-    void _pauseScanning() {
-      setState(() {
-        _isScanning = false;
-      });
-    }
+  @override
+  Future<bool> onWillPop() async {
+    // Prevent back navigation by returning false
+    return Future.value(false);
+  }
 
-    void _resumeScanning() {
-      setState(() {
-        _isScanning = true;
-      });
-    }
+  void _pauseScanning() {
+    setState(() {
+      _isScanning = false;
+    });
+  }
 
-    void _showQuestionDialog(
-        String question, String correctAnswer, int currentIndex) {
-      _pauseScanning();
-      showCupertinoDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (BuildContext context) {
-          return CupertinoAlertDialog(
-            title: Text(
-              'Question ${currentIndex + 1} out of ${qrCodeOrder.length}',
-              style: TextStyle(fontSize: 22),
-            ),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 20),
-                Text(
-                  question,
-                  style: TextStyle(
-                    fontSize: 18,
-                  ),
+  void _resumeScanning() {
+    setState(() {
+      _isScanning = true;
+    });
+  }
+
+  void _showQuestionDialog(
+      String question, String correctAnswer, int currentIndex) {
+    _pauseScanning();
+    showCupertinoDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: Text(
+            'Question ${currentIndex + 1} out of ${qrCodeOrder.length}',
+            style: TextStyle(fontSize: 22),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 20),
+              Text(
+                question,
+                style: TextStyle(
+                  fontSize: 18,
                 ),
-                SizedBox(height: 10),
-                CupertinoTextField(
-                  controller: _answerController,
-                  padding: EdgeInsets.all(16.0),
-                  placeholder: 'Your Answer',
-                  decoration: BoxDecoration(
-                    border: Border.all(color: CupertinoColors.black),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
+              ),
+              SizedBox(height: 10),
+              CupertinoTextField(
+                controller: _answerController,
+                padding: EdgeInsets.all(16.0),
+                placeholder: 'Your Answer',
+                decoration: BoxDecoration(
+                  border: Border.all(color: CupertinoColors.black),
+                  borderRadius: BorderRadius.circular(8.0),
                 ),
-              ],
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            CupertinoButton(
+              borderRadius: BorderRadius.zero,
+              color: Colors.blue[800],
+              onPressed: () {
+                String userAnswer = _answerController.text.trim().toLowerCase();
+                String correctAnswerLower = correctAnswer.toLowerCase();
+                if (userAnswer == correctAnswerLower) {
+                  setState(() {
+                    _score++;
+                  });
+                }
+                Navigator.of(context).pop(); // Close the question dialog
+                _answerController.clear(); // Clear the text field
+
+                // Show submission confirmation dialog
+                _showSubmissionConfirmationDialog();
+
+                if (_scannedCodes.length == qrCodeOrder.length) {
+                  _showFinalScoreDialog();
+                }
+              },
+              child: const Text(
+                'Submit',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
-            actions: <Widget>[
+          ],
+        );
+      },
+    ).then((_) =>
+        _resumeScanning()); // Ensure scanning resumes when the dialog is dismissed
+  }
+
+  void _showSubmissionConfirmationDialog() {
+    _pauseScanning(); // Ensure scanning is paused
+    setState(() {
+      _isFinalScoreDialogActive = true; // Set flag to true
+    });
+    showCupertinoDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: const Text('Submission Confirmation'),
+          content: Text('Your answer is submitted.\n\n${_getNextHint()}'),
+          actions: <Widget>[
+            CupertinoButton(
+              color: Colors.blue[800],
+              borderRadius: BorderRadius.zero,
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the confirmation dialog
+                setState(() {
+                  _isFinalScoreDialogActive = false; // Reset flag
+                });
+                _resumeScanning();
+              },
+              child: const Text(
+                'Okay',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ],
+        );
+      },
+    ).then((_) {
+      setState(() {
+        _isFinalScoreDialogActive = false; // Reset flag
+      });
+      _resumeScanning(); // Resume scanning after the dialog is dismissed
+    });
+  }
+
+  String _getNextHint() {
+    if (_nextExpectedIndex < hints.length) {
+      return 'Hint for the next QR Code: ${hints[_nextExpectedIndex]}';
+    }
+    return '';
+  }
+
+  void _startCooldown() {
+    setState(() {
+      _isCooldownActive = true;
+    });
+    Future.delayed(Duration(seconds: 5), () {
+      setState(() {
+        _isCooldownActive = false;
+      });
+    });
+  }
+
+  void _handleScan(String code) {
+    if (_isFinalScoreDialogActive) {
+      // If final score dialog is active, do not process scans
+      return;
+    }
+
+    if (!_isCooldownActive && _isScanning) {
+      _startCooldown();
+
+      if (_isValidCode(code)) {
+        int index = qrCodeOrder.indexOf(code);
+
+        if (index == -1) {
+          _showScanResultDialog('QR code not found');
+          return;
+        }
+
+        if (index != _nextExpectedIndex) {
+          _showScanResultDialog('Find the other QR');
+          return;
+        }
+
+        if (_scannedCodes.contains(code)) {
+          _showScanResultDialog('Find the next QR');
+        } else {
+          _scannedCodes.add(code);
+
+          if (_remainingQuestions.isNotEmpty) {
+            int questionIndex = _random.nextInt(_remainingQuestions.length);
+            Map<String, String> questionData =
+                _remainingQuestions[questionIndex];
+
+            _showQuestionDialog(questionData['question']!,
+                questionData['answer']!, _nextExpectedIndex);
+
+            setState(() {
+              _remainingQuestions.removeAt(questionIndex);
+            });
+          } else {
+            _showScanResultDialog('No more questions available');
+          }
+
+          setState(() {
+            _nextExpectedIndex++;
+          });
+        }
+      } else {
+        _showScanResultDialog('QR code not found');
+      }
+    }
+  }
+
+  bool _isValidCode(String code) {
+    return qrCodeOrder.contains(code);
+  }
+
+  void _showScanResultDialog(String message) {
+    _pauseScanning();
+    showCupertinoDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: const Text('Scan Result'),
+          content: Text(message),
+          actions: <Widget>[
+            CupertinoButton(
+              color: Colors.blue[800],
+              borderRadius: BorderRadius.zero,
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+                _resumeScanning(); // Resume scanning after the dialog is closed
+              },
+              child: const Text(
+                'Close',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ],
+        );
+      },
+    ).then(
+      (_) => _resumeScanning(),
+    ); // Ensure scanning resumes when the dialog is dismissed
+  }
+
+  void _showFinalScoreDialog() {
+    _pauseScanning(); // Ensure scanning is paused
+    setState(() {
+      _isFinalScoreDialogActive = true; // Set flag to true
+    });
+
+    showCupertinoDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: const Text('Final Score'),
+          content: _score < 6
+              ? Text('Your final score is: $_score')
+              : Text(
+                  'Congratulations! Your final score is: $_score\n\nClaim your prize by proceeding to the admin. Thank you for playing.\n\n Do not close it so the admin verify that you win.',
+                  style: TextStyle(fontSize: 16),
+                ),
+          actions: <Widget>[
+            if (_score < 6) ...[
               CupertinoButton(
-                borderRadius: BorderRadius.zero,
                 color: Colors.blue[800],
+                borderRadius: BorderRadius.zero,
                 onPressed: () {
-                  String userAnswer = _answerController.text.trim().toLowerCase();
-                  String correctAnswerLower = correctAnswer.toLowerCase();
-                  if (userAnswer == correctAnswerLower) {
+                  setState(() {
+                    _score = 0;
+                    _scannedCodes.clear();
+                    _remainingQuestions = List.from(questionsAndAnswers);
+                    _nextExpectedIndex = 0;
+                  });
+                  Navigator.of(context).pop(); // Close the dialog
+                  setState(() {
+                    _isFinalScoreDialogActive = false; // Reset flag
+                  });
+                  _resumeScanning(); // Resume scanning after the dialog is closed
+                },
+                child: const Text(
+                  'Try Again',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              CupertinoButton(
+                color: Colors.red[800],
+                borderRadius: BorderRadius.zero,
+                onPressed: () async {
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  await prefs.setString(
+                      'score', _score.toString()); // Store score as string
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Home(), // Pass the score
+                    ),
+                  );
+                  setState(() {
+                    _isFinalScoreDialogActive = false; // Reset flag
+                  });
+                  _resumeScanning(); // Resume scanning after the dialog is closed
+                },
+                child: const Text(
+                  'Logout',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ] else ...[
+              CupertinoTextField(
+                controller: _passwordController,
+                obscureText: true,
+                padding: EdgeInsets.all(16.0),
+                placeholder: 'Enter Password',
+                decoration: BoxDecoration(
+                  border: Border.all(color: CupertinoColors.black),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+              ),
+              CupertinoButton(
+                color: Colors.blue[800],
+                borderRadius: BorderRadius.zero,
+                onPressed: () async {
+                  if (_passwordController.text == 'CITE2024') {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    await prefs.setString(
+                        'score', _score.toString()); // Store score as string
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            const Finalpage(), // Pass the score
+                      ),
+                    );
                     setState(() {
-                      _score++;
+                      _isFinalScoreDialogActive = false; // Reset flag
                     });
-                  }
-                  Navigator.of(context).pop(); // Close the question dialog
-                  _answerController.clear(); // Clear the text field
-
-                  // Show submission confirmation dialog
-                  _showSubmissionConfirmationDialog();
-
-                  if (_scannedCodes.length == qrCodeOrder.length) {
-                    _showFinalScoreDialog();
+                    _resumeScanning(); // Resume scanning after the dialog is closed
+                  } else {
+                    _showScanResultDialog(
+                        'Incorrect password. You cannot close the game.');
                   }
                 },
                 child: const Text(
@@ -196,303 +483,74 @@
                 ),
               ),
             ],
-          );
-        },
-      ).then((_) =>
-          _resumeScanning()); // Ensure scanning resumes when the dialog is dismissed
-    }
-
-    void _showSubmissionConfirmationDialog() {
-      _pauseScanning(); // Ensure scanning is paused
+          ],
+        );
+      },
+    ).then((_) {
       setState(() {
-        _isFinalScoreDialogActive = true; // Set flag to true
+        _isFinalScoreDialogActive = false; // Reset flag
       });
-      showCupertinoDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (BuildContext context) {
-          return CupertinoAlertDialog(
-            title: const Text('Submission Confirmation'),
-            content: Text('Your answer is submitted.\n\n${_getNextHint()}'),
-            actions: <Widget>[
-              CupertinoButton(
-                color: Colors.blue[800],
-                borderRadius: BorderRadius.zero,
-                onPressed: () {
-                  Navigator.of(context).pop(); // Close the confirmation dialog
-                  setState(() {
-                    _isFinalScoreDialogActive = false; // Reset flag
-                  });
-                  _resumeScanning();
-                },
-                child: const Text(
-                  'Okay',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            ],
-          );
-        },
-      ).then((_) {
-        setState(() {
-          _isFinalScoreDialogActive = false; // Reset flag
-        });
-        _resumeScanning(); // Resume scanning after the dialog is dismissed
-      });
-    }
+      _resumeScanning(); // Resume scanning after the dialog is dismissed
+    });
+  }
 
-    String _getNextHint() {
-      if (_nextExpectedIndex < hints.length) {
-        return 'Hint for the next QR Code: ${hints[_nextExpectedIndex]}';
-      }
-      return '';
-    }
-
-    void _startCooldown() {
-      setState(() {
-        _isCooldownActive = true;
-      });
-      Future.delayed(Duration(seconds: 5), () {
-        setState(() {
-          _isCooldownActive = false;
-        });
-      });
-    }
-
-    void _handleScan(String code) {
-      if (_isFinalScoreDialogActive) {
-        // If final score dialog is active, do not process scans
-        return;
-      }
-
-      if (!_isCooldownActive && _isScanning) {
-        _startCooldown();
-
-        if (_isValidCode(code)) {
-          int index = qrCodeOrder.indexOf(code);
-
-          if (index == -1) {
-            _showScanResultDialog('QR code not found');
-            return;
-          }
-
-          if (index != _nextExpectedIndex) {
-            _showScanResultDialog('Find the other QR');
-            return;
-          }
-
-          if (_scannedCodes.contains(code)) {
-            _showScanResultDialog('Find the next QR');
-          } else {
-            _scannedCodes.add(code);
-
-            if (_remainingQuestions.isNotEmpty) {
-              int questionIndex = _random.nextInt(_remainingQuestions.length);
-              Map<String, String> questionData =
-                  _remainingQuestions[questionIndex];
-
-              _showQuestionDialog(questionData['question']!,
-                  questionData['answer']!, _nextExpectedIndex);
-
-              setState(() {
-                _remainingQuestions.removeAt(questionIndex);
-              });
-            } else {
-              _showScanResultDialog('No more questions available');
-            }
-
-            setState(() {
-              _nextExpectedIndex++;
-            });
-          }
-        } else {
-          _showScanResultDialog('QR code not found');
-        }
-      }
-    }
-
-    bool _isValidCode(String code) {
-      return qrCodeOrder.contains(code);
-    }
-
-    void _showScanResultDialog(String message) {
-      _pauseScanning();
-      showCupertinoDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (BuildContext context) {
-          return CupertinoAlertDialog(
-            title: const Text('Scan Result'),
-            content: Text(message),
-            actions: <Widget>[
-              CupertinoButton(
-                color: Colors.blue[800],
-                borderRadius: BorderRadius.zero,
-                onPressed: () {
-                  Navigator.of(context).pop(); // Close the dialog
-                  _resumeScanning(); // Resume scanning after the dialog is closed
-                },
-                child: const Text(
-                  'Close',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            ],
-          );
-        },
-      ).then(
-        (_) => _resumeScanning(),
-      ); // Ensure scanning resumes when the dialog is dismissed
-    }
-
-    void _showFinalScoreDialog() {
-      _pauseScanning(); // Ensure scanning is paused
-      setState(() {
-        _isFinalScoreDialogActive = true; // Set flag to true
-      });
-
-      showCupertinoDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (BuildContext context) {
-          return CupertinoAlertDialog(
-            title: const Text('Final Score'),
-            content: _score < 6
-                ? Text('Your final score is: $_score')
-                : Text(
-                    'Congratulations! Your final score is: $_score\n\nClaim your prize by proceeding to the admin. Thank you for playing.\n\n Do not close it so the admin verify that you win.',
-                    style: TextStyle(fontSize: 16),
-                  ),
-            actions: <Widget>[
-              if (_score < 6) ...[
-                CupertinoButton(
-                  color: Colors.blue[800],
-                  borderRadius: BorderRadius.zero,
-                  onPressed: () {
-                    setState(() {
-                      _score = 0;
-                      _scannedCodes.clear();
-                      _remainingQuestions = List.from(questionsAndAnswers);
-                      _nextExpectedIndex = 0;
-                    });
-                    Navigator.of(context).pop(); // Close the dialog
-                    setState(() {
-                      _isFinalScoreDialogActive = false; // Reset flag
-                    });
-                    _resumeScanning(); // Resume scanning after the dialog is closed
-                  },
-                  child: const Text(
-                    'Try Again',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-                CupertinoButton(
-                  color: Colors.red[800],
-                  borderRadius: BorderRadius.zero,
-                  onPressed: () async {
-                    SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                    await prefs.setString(
-                        'score', _score.toString()); // Store score as string
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Home(), // Pass the score
-                      ),
-                    );
-                    setState(() {
-                      _isFinalScoreDialogActive = false; // Reset flag
-                    });
-                    _resumeScanning(); // Resume scanning after the dialog is closed
-                  },
-                  child: const Text(
-                    'Logout',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ] else ...[
-                CupertinoTextField(
-                  controller: _passwordController,
-                  obscureText: true,
-                  padding: EdgeInsets.all(16.0),
-                  placeholder: 'Enter Password',
-                  decoration: BoxDecoration(
-                    border: Border.all(color: CupertinoColors.black),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
-                CupertinoButton(
-                  color: Colors.blue[800],
-                  borderRadius: BorderRadius.zero,
-                  onPressed: () async {
-                    if (_passwordController.text == 'CITE2024') {
-                      SharedPreferences prefs =
-                          await SharedPreferences.getInstance();
-                      await prefs.setString(
-                          'score', _score.toString()); // Store score as string
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Home(), // Pass the score
-                        ),
-                      );
-                      setState(() {
-                        _isFinalScoreDialogActive = false; // Reset flag
-                      });
-                      _resumeScanning(); // Resume scanning after the dialog is closed
-                    } else {
-                      _showScanResultDialog(
-                          'Incorrect password. You cannot close the game.');
-                    }
-                  },
-                  child: const Text(
-                    'Submit',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ],
-            ],
-          );
-        },
-      ).then((_) {
-        setState(() {
-          _isFinalScoreDialogActive = false; // Reset flag
-        });
-        _resumeScanning(); // Resume scanning after the dialog is dismissed
-      });
-    }
-
-    @override
-    Widget build(BuildContext context) {
-      return Scaffold(
-        backgroundColor: bgColor,
-        body: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('images/13.png'),
-              fit: BoxFit.cover,
-            ),
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: bgColor,
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('images/13.png'),
+            fit: BoxFit.cover,
           ),
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: SizedBox(
-                width: 350,
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: 50,
+        ),
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: SizedBox(
+              width: 350,
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 50,
+                        ),
+                        Text(
+                          'Information Technology',
+                          style: TextStyle(
+                            color: Colors.yellow[600],
+                            fontSize: 26,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1,
                           ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
                           Text(
-                            'Information Technology',
+                            'Hello, ${widget.name}',
                             style: TextStyle(
-                              color: Colors.yellow[600],
-                              fontSize: 26,
+                              color: Colors.white,
+                              fontSize: 16,
+                              letterSpacing: 1,
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            'Place the QR code',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                               letterSpacing: 1,
                             ),
@@ -500,69 +558,43 @@
                         ],
                       ),
                     ),
-                    Expanded(
-                      child: Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Hello, ${widget.name}',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                letterSpacing: 1,
-                              ),
-                            ),
-                            SizedBox(height: 10),
-                            Text(
-                              'Place the QR code',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 1,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 4,
-                      child: Stack(
-                        children: [
-                          if (_isScanning)
-                            MobileScanner(
-                              onDetect: (barcode) {
-                                String code =
-                                    barcode.barcodes.first.displayValue ?? '---';
-                                _handleScan(code);
-                              },
-                            ),
-                          QRScannerOverlay(overLayColor: bgColor),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        alignment: Alignment.center,
-                        child: Text(
-                          'CITE Developer',
-                          style: TextStyle(
-                            color: Colors.yellow[600],
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 1,
+                  ),
+                  Expanded(
+                    flex: 4,
+                    child: Stack(
+                      children: [
+                        if (_isScanning)
+                          MobileScanner(
+                            onDetect: (barcode) {
+                              String code =
+                                  barcode.barcodes.first.displayValue ?? '---';
+                              _handleScan(code);
+                            },
                           ),
+                        QRScannerOverlay(overLayColor: bgColor),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: Text(
+                        'CITE Developer',
+                        style: TextStyle(
+                          color: Colors.yellow[600],
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1,
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
         ),
-      );
-    }
+      ),
+    );
   }
+}

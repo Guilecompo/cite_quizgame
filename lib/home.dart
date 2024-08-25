@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cite_quizgame/finalpage.dart';
 import 'package:cite_quizgame/scanner.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,30 +15,6 @@ class Home extends StatefulWidget {
 final List<String> imagePaths = [
   'images/1.png',
   'images/2.png',
-  'images/3.png',
-  'images/4.png',
-  'images/5.png',
-  'images/6.png',
-  'images/7.png',
-  'images/8.png',
-  'images/9.png',
-  'images/10.png',
-  'images/11.png',
-  'images/12.png',
-];
-final List<String> imageNamePaths = [
-  'Python',
-  'Java',
-  'HTML',
-  'JavaScript',
-  'CSS',
-  'Flutter',
-  'Dart',
-  'PHP',
-  'MySQL',
-  'C-Sharp',
-  'Unity',
-  'React',
 ];
 
 late List<Widget> _pages;
@@ -93,16 +70,10 @@ class _HomeState extends State<Home> {
             );
           } else {
             // Show SnackBar if the score is greater than or equal to 6
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  'You already passed the quiz, you can’t play again.',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                backgroundColor: Colors.orange,
-                duration: Duration(minutes: 5),
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const Finalpage(),
               ),
             );
           }
@@ -136,7 +107,7 @@ class _HomeState extends State<Home> {
     final name = _nameController.text.trim();
 
     // Regular expression to validate only letters
-    final RegExp nameRegExp = RegExp(r'^[a-zA-Z]+$');
+    final RegExp nameRegExp = RegExp(r'^[a-zA-Z\s]+$');
 
     if (name.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -187,7 +158,6 @@ class _HomeState extends State<Home> {
       imagePaths.length,
       (index) => ImagePlaceholder(
         imagePath: imagePaths[index],
-        imageName: imageNamePaths[index],
       ),
     );
   }
@@ -231,7 +201,8 @@ class _HomeState extends State<Home> {
                       SizedBox(
                         height: 40,
                       ),
-                      SizedBox(
+                      Container(
+                        color: Colors.white54,
                         height: 150,
                         child: PageView.builder(
                           controller: _pageController,
