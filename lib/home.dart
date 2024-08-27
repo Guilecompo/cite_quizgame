@@ -31,14 +31,43 @@ class _HomeState extends State<Home> {
   String? _score;
   bool _isInputEnabled = true; // Track if input should be enabled
 
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(
+      initialPage: _totalPages * 1000,
+    );
+    _timer = Timer.periodic(Duration(seconds: 3), (Timer timer) {
+      if (_pageController.hasClients) {
+        _currentPageIndex = (_currentPageIndex + 1) % _totalPages;
+        _pageController.animateToPage(
+          _totalPages * 1000 + _currentPageIndex,
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        );
+      }
+    });
+
+    // Load preferences and navigate accordingly
+    _loadNo();
+
+    // Initialize the pages
+    _pages = List.generate(
+      imagePaths.length,
+      (index) => ImagePlaceholder(
+        imagePath: imagePaths[index],
+      ),
+    );
+  }
+
   Future<void> _loadNo() async {
-    // Instead of retrieving from SharedPreferences, just use default values
-    final no = '1'; // Default value
-    final name = ''; // Default value
-    final scoreString = '0'; // Default value
+    final prefs = await SharedPreferences.getInstance();
+
+    final no = prefs.getString('no') ?? '1';
+    final name = prefs.getString('name') ?? '';
+    final scoreString = prefs.getString('score') ?? '0';
     final score = int.tryParse(scoreString) ?? 0;
 
-    // Debug print statements
     print('Stored No: $no');
     print('Stored Name: $name');
     print('Stored Score: $score');
@@ -52,13 +81,13 @@ class _HomeState extends State<Home> {
 
       print('Is Input Enabled: $_isInputEnabled');
 
-      if (_no == '1') {
-        if (_name!.isNotEmpty) {
+      if (no == '1') {
+        if (name.isNotEmpty) {
           if (score < 6) {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => ScannerHome(name: _name!),
+                builder: (context) => ScannerHome(name: name),
               ),
             );
           } else {
@@ -72,32 +101,6 @@ class _HomeState extends State<Home> {
         }
       }
     });
-  }
-
-  Future<int?> getStoredLastSavedTime() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getInt('lastSavedTime'); // Retrieve last saved time
-  }
-
-  Future<String?> getStoredNo() async {
-    final prefs = await SharedPreferences.getInstance();
-    final String? no =
-        prefs.getString('no'); // Replace 'name' with your actual key
-    return no;
-  }
-
-  Future<String?> getStoredName() async {
-    final prefs = await SharedPreferences.getInstance();
-    final String? name =
-        prefs.getString('name'); // Replace 'name' with your actual key
-    return name;
-  }
-
-  Future<String?> getStoredScore() async {
-    final prefs = await SharedPreferences.getInstance();
-    final String? score =
-        prefs.getString('score'); // Replace 'name' with your actual key
-    return score;
   }
 
   Future<void> _saveName() async {
@@ -133,32 +136,6 @@ class _HomeState extends State<Home> {
         ),
       );
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _loadNo();
-    _pageController = PageController(
-        initialPage: _totalPages *
-            1000); // Set an arbitrary large value to start in the middle
-    _timer = Timer.periodic(Duration(seconds: 3), (Timer timer) {
-      if (_pageController.hasClients) {
-        _currentPageIndex = (_currentPageIndex + 1) % _totalPages;
-        _pageController.animateToPage(
-          _totalPages * 1000 +
-              _currentPageIndex, // Use the large value plus current page index for smooth loop
-          duration: Duration(milliseconds: 300),
-          curve: Curves.easeInOut,
-        );
-      }
-    });
-    _pages = List.generate(
-      imagePaths.length,
-      (index) => ImagePlaceholder(
-        imagePath: imagePaths[index],
-      ),
-    );
   }
 
   @override
@@ -205,10 +182,8 @@ class _HomeState extends State<Home> {
                         height: 150,
                         child: PageView.builder(
                           controller: _pageController,
-                          itemCount:
-                              null, // Set to null to allow infinite scrolling
+                          itemCount: null,
                           itemBuilder: (context, index) {
-                            // Calculate page index for smooth loop
                             int pageIndex = index % _totalPages;
                             return _pages[pageIndex];
                           },
@@ -247,16 +222,13 @@ class _HomeState extends State<Home> {
                             horizontal: 20.0,
                           ),
                         ),
-                        enabled:
-                            _isInputEnabled, // Enable or disable TextField based on condition
+                        enabled: _isInputEnabled,
                       ),
                       const SizedBox(height: 20),
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                          onPressed: _isInputEnabled
-                              ? _saveName
-                              : null, // Enable or disable button based on condition
+                          onPressed: _isInputEnabled ? _saveName : null,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.yellow[700],
                             padding: const EdgeInsets.symmetric(vertical: 15),
