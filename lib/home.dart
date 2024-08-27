@@ -32,46 +32,23 @@ class _HomeState extends State<Home> {
   bool _isInputEnabled = true; // Track if input should be enabled
 
   Future<void> _loadNo() async {
-    final no = await getStoredNo();
-    final name = await getStoredName();
-    final scoreString = await getStoredScore();
-    final lastSavedTimeMillis = await getStoredLastSavedTime();
-
-    // Convert scoreString to an integer if it's not null
-    final score = int.tryParse(scoreString ?? '') ?? 0;
+    // Instead of retrieving from SharedPreferences, just use default values
+    final no = '1'; // Default value
+    final name = ''; // Default value
+    final scoreString = '0'; // Default value
+    final score = int.tryParse(scoreString) ?? 0;
 
     // Debug print statements
     print('Stored No: $no');
     print('Stored Name: $name');
     print('Stored Score: $score');
-    print('Last Saved Time: $lastSavedTimeMillis');
-
-    // Check if the data is expired (older than 1 minute)
-    if (lastSavedTimeMillis != null) {
-    final lastSavedTime = DateTime.fromMillisecondsSinceEpoch(lastSavedTimeMillis);
-    final currentTime = DateTime.now();
-    final difference = currentTime.difference(lastSavedTime).inHours;
-
-    if (difference >= 24) {
-      // Data is expired, clear stored data
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.remove('name');
-      await prefs.remove('no');
-      await prefs.remove('score');
-      await prefs.remove('lastSavedTime');
-      // Optionally, navigate or show a message
-      print('Stored data has expired and has been cleared.');
-    }
-  }
-
 
     setState(() {
       _no = no;
       _name = name;
       _score = scoreString;
 
-      _isInputEnabled =
-          !(no == '1' && name != null && name.isNotEmpty && score >= 6);
+      _isInputEnabled = !(no == '1' && name.isNotEmpty && score >= 6);
 
       print('Is Input Enabled: $_isInputEnabled');
 
