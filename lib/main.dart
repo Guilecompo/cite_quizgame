@@ -1,19 +1,17 @@
-import 'dart:async'; // Import this for Timer functionality
-
 import 'package:cite_quizgame/home.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart'; // Import SharedPreferences
+// import 'package:shared_preferences/shared_preferences.dart'; // Import SharedPreferences
 
 void main() {
   // Set up a timer to clear local storage after 30 seconds
-  Timer(Duration(seconds: 30), () async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('name');
-    await prefs.remove('no');
-    await prefs.remove('score');
-    await prefs.remove('lastSavedTime');
-    print('Local storage cleared after 30 seconds.');
-  });
+  // Timer(Duration(seconds: 30), () async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   await prefs.remove('name');
+  //   await prefs.remove('no');
+  //   await prefs.remove('score');
+  //   await prefs.remove('lastSavedTime');
+  //   print('Local storage cleared after 30 seconds.');
+  // });
 
   runApp(const MyApp());
 }

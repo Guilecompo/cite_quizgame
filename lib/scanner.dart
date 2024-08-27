@@ -11,62 +11,125 @@ import 'package:shared_preferences/shared_preferences.dart';
 const bgColor = Color(0xFF1b5e20);
 
 final List<Map<String, String>> questionsAndAnswers = [
-  {"question": "What is the output of `print(5 + 3)`  ?", "answer": "8"},
-  {"question": "What keyword is used to exit a loop  ?", "answer": "break"},
+  {
+    "question": "What does the acronym 'OS' stand for in computing?",
+    "answer": "operating system"
+  },
+  {
+    "question": "What does 'URL' stand for?",
+    "answer": "uniform resource locator"
+  },
+  {
+    "question": "What does 'SSD' stand for in computer storage?",
+    "answer": "solid state drive"
+  },
+  {
+    "question": "What does 'GUI' stand for?",
+    "answer": "graphical user interface"
+  },
+  {"question": "What does 'LAN' stand for?", "answer": "local area network"},
+  {
+    "question": "Who is considered as the Father of Computers?",
+    "answer": "charles babbage"
+  },
+  {
+    "question": "Who is Bill Gates’ co-founder at Microsoft?",
+    "answer": "paul allen"
+  },
+  {
+    "question": "Who is Steve Jobs' co-founder at Apple?",
+    "answer": "steve wozniak"
+  },
+  {
+    "question": "What company invented the programming language Java?",
+    "answer": "sun microsystems"
+  },
+  {
+    "question": "CPU is the brain of the computer. What does CPU stand for?",
+    "answer": "central processing unit"
+  },
   {
     "question":
-        "What keyword is used to end a function early and return a value  ?",
-    "answer": "return"
+        "What is the primary input device used for typing text into a computer?",
+    "answer": "keyboard"
   },
   {
-    "question": "What is the purpose of using `==` in a condition  ?",
-    "answer": "equal"
+    "question":
+        "What is the primary input device used to point, click, and interact with items on a computer screen?",
+    "answer": "mouse"
   },
-  {"question": "Is the statement `5 == 5` true or false  ?", "answer": "true"},
   {
-    "question": "What is the meaning of this condition `!=` in programming  ?",
+    "question": "What is the name of Apple’s popular smartphone?",
+    "answer": "iphone"
+  },
+  {
+    "question":
+        "It is a mobile operating system developed by Google. What is it called?",
+    "answer": "android"
+  },
+  {
+    "question":
+        "What is the name of the operating system developed by Microsoft?",
+    "answer": "windows"
+  },
+  {
+    "question": "What is the name of the first computer programmer?",
+    "answer": "ada lovelace"
+  },
+  {
+    "question":
+        "What is the name of the most popular streaming service that offers movies, TV shows, and original content?",
+    "answer": "netflix"
+  },
+  {
+    "question":
+        "What is the name of the popular music streaming service that offers a vast library of songs, podcasts, and playlists, and is owned by Apple?",
+    "answer": "apple music"
+  },
+  {
+    "question":
+        "What is the name of the social media platform founded by Mark Zuckerberg in 2004?",
+    "answer": "facebook"
+  },
+  {
+    "question":
+        "What is the name of the popular social media platform known for short-form videos and viral challenges?",
+    "answer": "tiktok"
+  },
+  {
+    "question":
+        "What is the network security device that monitors and controls incoming and outgoing network traffic based on predetermined security rules?",
+    "answer": "firewall"
+  },
+  {
+    "question":
+        "What is the term for someone who uses their technical skills to gain unauthorized access to computer systems?",
+    "answer": "hacker"
+  },
+  {
+    "question": "What is the command used to display output in Python?",
+    "answer": "print"
+  },
+  {
+    "question":
+        "What is the term for a storage location in programming that can hold different values during the execution of a program?",
+    "answer": "variable"
+  },
+  {
+    "question": "What is the meaning of this condition `!=` in programming ?",
     "answer": "not equal"
   },
   {
-    "question": "What is the meaning of this condition `<` in programming  ?",
+    "question": "What is the meaning of this condition `<` in programming ?",
     "answer": "less than"
   },
   {
-    "question": "What is meaning of this condition `>` in programming  ?",
+    "question": "What is the meaning of this condition `>` in programming ?",
     "answer": "greater than"
   },
-  {
-    "question": "What does `str` represent in programming  ?",
-    "answer": "string"
-  },
-  {
-    "question": "What does `int` represent in programming  ?",
-    "answer": "integer"
-  },
-  {
-    "question": "What does float represent in terms of data type?",
-    "answer": "decimal"
-  },
-  {
-    "question": "What does `bool` represent in programming  ?",
-    "answer": "boolean"
-  },
-  {"question": "What is the purpose of `#` in Python  ?", "answer": "comment"},
-  {"question": "What is the result of `print(5 + 3)`  ?", "answer": "8"},
-  {"question": "What is the result of `print(5 * 3)`  ?", "answer": "15"},
-  {"question": "What is the result of `print(15 - 3)`  ?", "answer": "12"},
-  {
-    "question": "What is the result of `print(\"Number: \" + 5)`  ?",
-    "answer": "error"
-  },
-  {
-    "question": "What is the result of `print(\"Year: \" + 2024)`  ?",
-    "answer": "error"
-  },
-  {
-    "question": "What is the result of `print(\"information technology\")`  ?",
-    "answer": "information technology"
-  },
+  {"question": "What is the result of `print(5 + 3)` ?", "answer": "8"},
+  {"question": "What is the result of `print(5 * 3)` ?", "answer": "15"},
+  {"question": "What is the result of `print(15 - 3)` ?", "answer": "12"},
 ];
 
 final List<String> qrCodeOrder = [
