@@ -146,16 +146,16 @@ final List<String> qrCodeOrder = [
 ];
 
 final List<String> hints = [
-  'Hint for QR Code 1',
-  'Hint for QR Code 2',
-  'Hint for QR Code 3',
-  'Hint for QR Code 4',
-  'Hint for QR Code 5',
-  'Hint for QR Code 6',
-  'Hint for QR Code 7',
-  'Hint for QR Code 8',
-  'Hint for QR Code 9',
-  'Hint for QR Code 10',
+  'Hint: Start here',
+  'Hint: Look for something blue',
+  'Hint: Find Governor`s Name',
+  'Hint: Look for 6 side shape',
+  'Hint: Look for the logo of Javascript',
+  'Hint: Look for the output of print(13 + 12)',
+  'Hint: Find Dean Name',
+  'Hint: Find the name of Network Security instructor',
+  'Hint: Find the name of System Dev instructor',
+  'Hint: Find the name of SBO adviser',
 ];
 
 class ScannerHome extends StatefulWidget {
