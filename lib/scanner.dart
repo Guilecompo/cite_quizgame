@@ -148,13 +148,13 @@ final List<String> qrCodeOrder = [
 final List<String> hints = [
   'Hint: Start here',
   'Hint: Look for something blue',
-  'Hint: Find Governor`s Name',
+  'Hint: Find Governor Name',
   'Hint: Look for 6 side shape',
   'Hint: Look for the logo of Javascript',
   'Hint: Look for the output of print(13 + 12)',
   'Hint: Find Dean Name',
   'Hint: Find the name of Network Security instructor',
-  'Hint: Find the name of System Dev instructor',
+  'Hint: Find for the logo of Python',
   'Hint: Find the name of SBO adviser',
 ];
 
